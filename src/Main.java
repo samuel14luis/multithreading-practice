@@ -1,8 +1,13 @@
 import utils.ConsoleColors;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
+        test2();
+    }
 
+    private static void test1() {
         Thread t1 = new Thread(() -> {
 
             long startTime = System.currentTimeMillis();
@@ -27,6 +32,18 @@ public class Main {
         });
 
         t1.start();
+    }
+
+    private static void test2() {
+
+        Processor proc1 = new Processor();
+        proc1.start();
+
+        System.out.println("Press return to stop...");
+        Scanner scan = new Scanner(System.in);
+        scan.nextLine();
+
+        proc1.shutdown();
     }
 
     private static Thread createThread(String number) {
