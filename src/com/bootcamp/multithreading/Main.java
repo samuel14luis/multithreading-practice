@@ -1,15 +1,14 @@
 package com.bootcamp.multithreading;
 
-import com.bootcamp.multithreading.services.App1;
-import com.bootcamp.multithreading.services.Processor;
-import com.bootcamp.multithreading.services.ThreadSync;
+import com.bootcamp.multithreading.services.*;
 import com.bootcamp.multithreading.utils.ConsoleColors;
 
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
-        test3();
+        test4();
     }
 
     private static void test1() {
@@ -55,6 +54,11 @@ public class Main {
         new ThreadSync().doWorkAsync();
         new ThreadSync().doWorkHalfSync();
         new ThreadSync().doWorkSync();
+    }
+
+    private static void test4() {
+        new Worker().main();
+        new WorkerLocked().mainLocked();
     }
 
     private static Thread createThread(String number) {
