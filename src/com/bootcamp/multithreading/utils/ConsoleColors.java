@@ -1,4 +1,4 @@
-package utils;
+package com.bootcamp.multithreading.utils;
 
 public class ConsoleColors {
     public static final String RESET = "\u001b[0m";

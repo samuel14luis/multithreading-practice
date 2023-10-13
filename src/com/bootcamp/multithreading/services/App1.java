@@ -1,4 +1,6 @@
-import utils.ConsoleColors;
+package com.bootcamp.multithreading.services;
+
+import com.bootcamp.multithreading.utils.ConsoleColors;
 
 public class App1 implements Runnable {
 

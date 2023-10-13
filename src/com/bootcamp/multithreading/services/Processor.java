@@ -1,3 +1,5 @@
+package com.bootcamp.multithreading.services;
+
 public class Processor extends Thread {
 
     private int count = 0;

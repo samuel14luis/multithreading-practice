@@ -1,4 +1,8 @@
-import utils.ConsoleColors;
+package com.bootcamp.multithreading;
+
+import com.bootcamp.multithreading.services.App1;
+import com.bootcamp.multithreading.services.Processor;
+import com.bootcamp.multithreading.utils.ConsoleColors;
 
 import java.util.Scanner;
 
