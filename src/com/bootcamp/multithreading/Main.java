@@ -10,13 +10,13 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
 
-    private volatile static Long startTime = System.currentTimeMillis();
+    private static final Long startTime = System.currentTimeMillis();
 
     public static void main(String[] args) {
-        test1();
-        test2();
-        test3();
-        test4();
+        //test1();
+        //test2();
+        //test3();
+        //test4();
         test5();
     }
 
