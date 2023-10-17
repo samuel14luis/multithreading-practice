@@ -4,6 +4,7 @@ import com.bootcamp.multithreading.services.*;
 import com.bootcamp.multithreading.utils.ConsoleColors;
 
 import java.util.Scanner;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -17,7 +18,8 @@ public class Main {
         //test2();
         //test3();
         //test4();
-        test5();
+        //test5();
+        test6();
     }
 
     public static synchronized Long getStartTime() {
@@ -97,6 +99,39 @@ public class Main {
         }
 
         System.out.println(ConsoleColors.GREEN_FONT + "All tasks completed." + ConsoleColors.RESET);
+    }
+
+    /**
+     * CountDownLatch.
+     */
+    private static void test6() {
+
+        CountDownLatch latch = new CountDownLatch(3);
+
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+
+        for (int i = 0; i < 5; i++) {
+            executor.submit(new LatchProcessor(latch, i));
+        }
+
+        System.out.println(ConsoleColors.GREEN_FONT + "All tasks submitted." + ConsoleColors.RESET);
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(ConsoleColors.GREEN_FONT + "All tasks completed." + ConsoleColors.RESET);
+
+        executor.shutdown();
+
+        try {
+            executor.awaitTermination(1, TimeUnit.DAYS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private static Thread createThread(String number) {
