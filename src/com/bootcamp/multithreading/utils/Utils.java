@@ -9,4 +9,10 @@ public class Utils {
         return minutes + "m " + seconds + "s.";
     }
 
+    public static long getSecondsOfTime(long start, long end) {
+        long totalTime = end - start;
+        long seconds = (totalTime / 1000) % 60;
+        return seconds;
+    }
+
 }

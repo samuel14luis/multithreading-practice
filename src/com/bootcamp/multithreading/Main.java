@@ -4,11 +4,24 @@ import com.bootcamp.multithreading.services.*;
 import com.bootcamp.multithreading.utils.ConsoleColors;
 
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 
+    private volatile static Long startTime = System.currentTimeMillis();
+
     public static void main(String[] args) {
+        test1();
+        test2();
+        test3();
         test4();
+        test5();
+    }
+
+    public static synchronized Long getStartTime() {
+        return startTime;
     }
 
     private static void test1() {
@@ -56,9 +69,34 @@ public class Main {
         new ThreadSync().doWorkSync();
     }
 
+    /**
+     * Shared variables.
+     */
     private static void test4() {
         new Worker().main();
         new WorkerLocked().mainLocked();
+    }
+
+    /**
+     * Pool of threads.
+     */
+    private static void test5() {
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+        for (int i = 0; i < 10; i++) {
+            executor.submit(new ThreadForPool(i));
+        }
+
+        executor.shutdown();
+
+        System.out.println(ConsoleColors.GREEN_FONT + "All tasks submitted." + ConsoleColors.RESET);
+
+        try {
+            executor.awaitTermination(1, TimeUnit.DAYS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(ConsoleColors.GREEN_FONT + "All tasks completed." + ConsoleColors.RESET);
     }
 
     private static Thread createThread(String number) {
@@ -68,14 +106,15 @@ public class Main {
                     ConsoleColors.BLUE_FONT,
                     ConsoleColors.BLACK_BACKGROUND, 10));
             case 2: return new Thread(new App1("Thread " + number,
-                        ConsoleColors.BLACK_FONT,
-                        ConsoleColors.RED_BACKGROUND, 15));
+                    ConsoleColors.BLACK_FONT,
+                    ConsoleColors.RED_BACKGROUND, 15));
             case 3: return new Thread(new App1("Thread " + number,
-                        ConsoleColors.BLACK_GREEN_FONT,
-                        ConsoleColors.YELLOW_BACKGROUND, 5));
+                    ConsoleColors.BLACK_GREEN_FONT,
+                    ConsoleColors.YELLOW_BACKGROUND, 5));
             default: return new Thread(new App1("Thread " + number,
-                        ConsoleColors.BLUE_FONT,
-                        ConsoleColors.BLACK_BACKGROUND, 3));
+                    ConsoleColors.BLUE_FONT,
+                    ConsoleColors.BLACK_BACKGROUND, 3));
         }
     }
+
 }
