@@ -9,6 +9,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import static com.bootcamp.multithreading.services.App2.*;
+
 public class Main {
 
     private static final Long startTime = System.currentTimeMillis();
@@ -19,7 +21,8 @@ public class Main {
         //test3();
         //test4();
         //test5();
-        test6();
+        //test6();
+        test7();
     }
 
     public static synchronized Long getStartTime() {
@@ -132,6 +135,17 @@ public class Main {
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * Using threads as producer and consumer.
+     */
+    private static void test7() {
+        try {
+            exec();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static Thread createThread(String number) {
