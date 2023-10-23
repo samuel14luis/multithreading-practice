@@ -24,7 +24,8 @@ public class Main {
         //test6();
         //test7();
         //test8();
-        test9();
+        //test9();
+        test10();
     }
 
     public static synchronized Long getStartTime() {
@@ -222,6 +223,38 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private static void test10() {
+        final App10ReentrantLocks processor = new App10ReentrantLocks();
+
+        Thread t1 = new Thread(() -> {
+            try {
+                processor.firstThread(1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        Thread t2 = new Thread(() -> {
+            try {
+                processor.secondThread(2);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        processor.finished();
     }
 
     private static Thread createThread(String number) {
