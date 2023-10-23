@@ -22,7 +22,8 @@ public class Main {
         //test4();
         //test5();
         //test6();
-        test7();
+        //test7();
+        test8();
     }
 
     public static synchronized Long getStartTime() {
@@ -146,6 +147,43 @@ public class Main {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Using threads as producer and consumer with wait and notify.
+     * In short, produce() will wait until consume() calls notify(),
+     * while consume() will wait for user input before calling notify().
+     * This coordinates execution between the two threads using wait/notify for synchronization.
+     */
+    private static void test8() {
+        final App3Notify processor = new App3Notify();
+
+        Thread t1 = new Thread(() -> {
+            try {
+                processor.produce();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        Thread t2 = new Thread(() -> {
+            try {
+                processor.consume();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     private static Thread createThread(String number) {
