@@ -23,7 +23,8 @@ public class Main {
         //test5();
         //test6();
         //test7();
-        test8();
+        //test8();
+        test9();
     }
 
     public static synchronized Long getStartTime() {
@@ -157,6 +158,43 @@ public class Main {
      */
     private static void test8() {
         final App3Notify processor = new App3Notify();
+
+        Thread t1 = new Thread(() -> {
+            try {
+                processor.produce();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        Thread t2 = new Thread(() -> {
+            try {
+                processor.consume();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    /**
+     * Synchronization on the common lock object ensures that only one thread can access the list at a time.
+     * wait() and notify() are used to coordinate them and avoid race conditions.
+     *
+     * In short, this produces and consumes values from a shared list synchronously using low-level wait/notify.
+     */
+    private static void test9() {
+        final App9LowLevelNotify processor = new App9LowLevelNotify();
 
         Thread t1 = new Thread(() -> {
             try {
