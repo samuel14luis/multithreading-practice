@@ -27,7 +27,8 @@ public class Main {
         //test9();
         //test10();
         //test11();
-        test12();
+        //test12();
+        test13();
     }
 
     public static synchronized Long getStartTime() {
@@ -348,6 +349,36 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * A Callable and a Future are being used to execute an asynchronous task and obtain its result.
+     *
+     * An ExecutorService with thread pool cached is created.
+     *
+     * A Callable is then sent using submit(). This returns a Future.
+     *
+     * The Callable sleeps a random time of less than 4 seconds to simulate a task.
+     * If it lasts more than 2 seconds, it throws an exception.
+     *
+     * Then the ExecutorService is closed.
+     *
+     * Get() is then called on the Future to obtain the result of the task.
+     *
+     * This will block until the task finishes.
+     *
+     * If the task finished normally, get() returns the result.
+     *
+     * But if you threw an exception, get() wraps it in an ExecutionException.
+     *
+     * We can then handle the InterruptedException if the thread was interrupted,
+     * or print the error message if there was an ExecutionException.
+     *
+     * In summary, Callable and Future allow you to execute asynchronous tasks
+     * and obtain their result or exception easily. The main thread does not block while the task is running.
+     */
+    private static void test13() {
+        App13CallableAndFuture.run();
     }
 
     private static Thread createThread(String number) {
