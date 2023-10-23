@@ -29,7 +29,8 @@ public class Main {
         //test11();
         //test12();
         //test13();
-        test14();
+        //test14();
+        test15();
     }
 
     public static synchronized Long getStartTime() {
@@ -382,8 +383,26 @@ public class Main {
         App13CallableAndFuture.run();
     }
 
+    /**
+     * Pressing startButton executes the start() method.
+     * This creates a SwingWorker that runs a task in the background.
+     * In doInBackground() you have a loop that prints and sleeps to simulate a long task.
+     * Each iteration publishes the counter value with publish().
+     *
+     * The process() method is invoked on the Swing thread when new values are posted. Updates the countLabel label.
+     * Upon completion of the task, done() is executed in the Swing thread. Shows status and handles any exceptions.
+     *
+     * SwingWorker allows you to define an asynchronous task and publish updates to modify the GUI from the correct thread.
+     * This avoids blocking the interface while long tasks are running. The interface remains responsive.
+     *
+     * In short, SwingWorker makes it easy to create asynchronous tasks in Swing that communicate securely with the GUI.
+     */
     private static void test14() {
         App14InterruptingThreads.run();
+    }
+
+    private static void test15() {
+        App15SwingWorker.run();
     }
 
     private static Thread createThread(String number) {
