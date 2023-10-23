@@ -26,7 +26,8 @@ public class Main {
         //test8();
         //test9();
         //test10();
-        test11();
+        //test11();
+        test12();
     }
 
     public static synchronized Long getStartTime() {
@@ -327,6 +328,26 @@ public class Main {
         }
 
         processor.finished();
+    }
+
+    /**
+     * The App12Semaphore class demonstrates how a semaphore can be used to limit the number of connections.
+     * It has a Connection class that uses a semaphore to limit the number of connections to 10.
+     * It has a run method that creates 200 threads that each call the connect method of the Connection class.
+     * The connect method acquires a permit from the semaphore, calls doConnect, and then releases the permit.
+     * The doConnect method simply increments a counter and prints it.
+     * The output shows that only 10 threads can call doConnect at a time.
+     * The other threads wait until a permit is available.
+     *
+     * In short, this limits the parallelism of certain operations using a Semaphore,
+     * to control access to shared resources.
+     */
+    private static void test12() {
+        try {
+            App12Semaphore.run();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private static Thread createThread(String number) {
