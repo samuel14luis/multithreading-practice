@@ -275,6 +275,28 @@ public class Main {
         processor.finished();
     }
 
+    /**
+     * The App11Deadlock class demonstrates how a deadlock can occur
+     * when multiple threads acquire locks in different orders.
+     *
+     * It has two accounts (acc1 and acc2), two locks (lock1 and lock2),
+     * and two thread methods (firstThread and secondThread) that transfer money between the accounts.
+     *
+     * The acquireLocks method acquires the passed locks in a given order,
+     * or sleeps and tries again if it cannot acquire them.
+     *
+     * firstThread acquires the locks in order lock1 then lock2.
+     * secondThread acquires the locks in order lock2 then lock1.
+     *
+     * If firstThread acquires lock1 and then secondThread acquires lock2 before firstThread can acquire it as well,
+     * a deadlock occurs. Both threads wait indefinitely for the lock that the other thread has.
+     *
+     * The output shows the final balance if deadlock does not occur, but if it does, the program never terminates
+     * since the threads are blocked forever.
+     *
+     * This demonstrates how acquiring locks in inconsistent orders in multiple threads can cause deadlocks
+     * when threads lock each other. The solution is to acquire the locks in a consistent order.
+     */
     private static void test11() {
         final App11Deadlock processor = new App11Deadlock();
 
