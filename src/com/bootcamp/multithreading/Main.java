@@ -28,7 +28,8 @@ public class Main {
         //test10();
         //test11();
         //test12();
-        test13();
+        //test13();
+        test14();
     }
 
     public static synchronized Long getStartTime() {
@@ -379,6 +380,10 @@ public class Main {
      */
     private static void test13() {
         App13CallableAndFuture.run();
+    }
+
+    private static void test14() {
+        App14InterruptingThreads.run();
     }
 
     private static Thread createThread(String number) {
