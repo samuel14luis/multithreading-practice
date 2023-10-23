@@ -225,6 +225,23 @@ public class Main {
 
     }
 
+    /**
+     * ReentrantLocks.
+     * The App10ReentrantLocks class uses a ReentrantLock and its associated Conditions
+     * for synchronization and communication between threads.
+     *
+     * It has an increment() method that simply increments a counter count.
+     * The firstThread() and secondThread() methods run in separate threads.
+     *
+     * By using ReentrantLock and Condition, synchronization between threads is more flexible.
+     * It allows you to suspend a thread until some event (the signal) occurs,
+     * without having to block the entire object with synchronized.
+     *
+     * The finished() method at the end simply prints the final value of the counter after both threads finish.
+     *
+     * In summary, this illustrates the use of reentrant locks and conditions
+     * for more advanced synchronization between threads.
+     */
     private static void test10() {
         final App10ReentrantLocks processor = new App10ReentrantLocks();
 
